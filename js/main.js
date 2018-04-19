@@ -3,7 +3,7 @@ var intro_table = d3.select('#intro-magic-square')
               .append('table')
               .append('tbody');
 
-drawSquareGrid(intro_table, 'intro', 3);
+draw3x3MagicSquare(intro_table, 'intro', 1, 3, 5)
 
 
 // The function takes 3 variables:
@@ -34,4 +34,51 @@ function drawSquareGrid(table_element, grid_short_name, n) {
 
     row_num++;
   }
+}
+
+
+// The function uses an already existing 3x3 grid and uses the Lucas's formula
+// (https://en.wikipedia.org/wiki/Magic_square#Specific_methods_of_construction)
+// to insert numbers into the cells such that it becomes a magic square.
+// The function takes in 5 variables:
+//    table_element: for the drawSquareGrid function (see above).
+//    square_name: for the drawSquareGrid function (see above).
+//    a: an integer that's greater than 0.
+//    b: an integer that's greater than a.
+//    c: an integer such that (c - a) > b
+// Conditions aren't checked here (yet), but the other one is b != 2a
+// Returns:
+//    Inserts numbers into empty table cells according to the forumla.
+function draw3x3MagicSquare(table_element, square_name, a, b, c) {
+  drawSquareGrid(table_element, square_name, 3);
+
+  const cell_mapping = {
+    'r1c1': c - b,
+    'r1c2': c + (a + b),
+    'r1c3': c - a,
+    'r2c1': c - (a - b),
+    'r2c2': c,
+    'r2c3': c + (a - b),
+    'r3c1': c + a,
+    'r3c2': c - (a + b),
+    'r3c3': c + b
+  }
+
+  var name = square_name + '-';
+      row_num = 1;
+
+  for (var i = 0; i < 3; i++) {
+    var col_num = 1;
+
+    for (var j = 0; j < 3; j++) {
+      var cell_id = 'r' + row_num + 'c' + col_num;
+      d3.select('#' + name + cell_id)
+        .text(cell_mapping[cell_id]);
+
+      col_num++;
+    }
+
+    row_num++;
+  }
+
 }
