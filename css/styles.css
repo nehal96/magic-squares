@@ -1,0 +1,25 @@
+
+table {
+  border: 1px solid black;
+  border-collapse: separate;
+  border-spacing: inherit;
+  font-size: 1.75rem;
+}
+
+tr {
+  border: 1px solid black;
+}
+
+td {
+  width: 75px;
+  height: 75px;
+  border: 1px solid black;
+  padding: .25rem;
+  text-align: center;
+}
+
+#intro-magic-square {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
