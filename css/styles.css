@@ -14,9 +14,29 @@ td {
   text-align: center;
 }
 
+.btn-container {
+  margin-bottom: 1.5rem;
+}
+
+.btn {
+  border: 1px solid #999;
+  padding: .5rem .75rem;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.25;
+  border-radius: .25rem;
+  transition: all .15s ease-in-out;
+}
+
+.btn:hover {
+  background-color: lightgreen;
+  transition: .15s ease-in-out;
+}
+
 #intro-magic-square {
   display: flex;
-  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   margin-bottom: 3rem;
 }
 

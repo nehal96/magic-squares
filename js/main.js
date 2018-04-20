@@ -1,6 +1,7 @@
 
 var intro_table = d3.select('#intro-magic-square')
               .append('table')
+               .attr('id', 'intro-magic-square-grid')
               .append('tbody');
 
 draw3x3MagicSquare(intro_table, 'intro', 1, 3, 5)
@@ -104,5 +105,50 @@ function draw3x3MagicSquare(table_element, square_name, a, b, c) {
     d3.select('#' + name + cell_id)
       .attr('class', 'totals-' + totals_cells[cell_id]);
   }
+
+}
+
+
+function animateMagicSquare() {
+  var timer = 200,
+      increment = 300,
+      row_num = 1;
+
+  var col_bgd_color = function(selector, color) {
+    d3.select(selector).style('background-color', color);
+  }
+
+  col_bgd_color('#intro-r1c4', '');
+
+  // There has got to be a better of doing this.
+  // Row 1
+  c11 = d3.select('#intro-r1c1').text();
+  c12 = d3.select('#intro-r1c2').text();
+  c13 = d3.select('#intro-r1c3').text();
+  c14 = d3.select('#intro-r1c4')
+
+  window.setTimeout(function() {
+    col_bgd_color('#intro-r1c1', 'orange');
+    c14.text(c11);
+    c14_val = Number(c14.text());
+  }, timer);
+
+  window.setTimeout(function() {
+    col_bgd_color('#intro-r1c2', 'orange');
+    c14.text(c14_val + Number(c12));
+    c14_val = Number(c14.text());
+  }, timer + increment);
+
+  window.setTimeout(function() {
+    col_bgd_color('#intro-r1c3', 'orange');
+    c14.text(c14_val + Number(c13));
+  }, timer + (2 * increment));
+
+  window.setTimeout(function() {
+    col_bgd_color('#intro-r1c4', 'lightgreen');
+    col_bgd_color('#intro-r1c1', '');
+    col_bgd_color('#intro-r1c2', '');
+    col_bgd_color('#intro-r1c3', '');
+  }, timer + (3 * increment));
 
 }
