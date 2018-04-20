@@ -1,13 +1,9 @@
 
 table {
-  border: 1px solid black;
+  /*border: 1px solid black;*/
   border-collapse: separate;
   border-spacing: inherit;
   font-size: 1.75rem;
-}
-
-tr {
-  border: 1px solid black;
 }
 
 td {
@@ -22,4 +18,31 @@ td {
   display: flex;
   justify-content: center;
   margin-bottom: 3rem;
+}
+
+.totals-top-right {
+  border-right: none;
+  border-top: none;
+  border-bottom: #eee;
+}
+
+.totals-center-right {
+  border-right: none;
+  border-bottom: #eee;
+}
+
+.totals-bottom-left {
+  border-left: none;
+  border-bottom: none;
+}
+
+.totals-center-bottom {
+  border-bottom: none;
+  border-left: #eee;
+}
+
+.totals-bottom-right {
+  border-right: none;
+  border-bottom: none;
+  border-left: #eee;
 }

@@ -50,8 +50,10 @@ function drawSquareGrid(table_element, grid_short_name, n) {
 // Returns:
 //    Inserts numbers into empty table cells according to the forumla.
 function draw3x3MagicSquare(table_element, square_name, a, b, c) {
-  drawSquareGrid(table_element, square_name, 3);
+  // Draw square grid (extra row + col is for totals)
+  drawSquareGrid(table_element, square_name, 4);
 
+  // Dictionary that will be used to apply formula to determine each cell's number
   const cell_mapping = {
     'r1c1': c - b,
     'r1c2': c + (a + b),
@@ -63,6 +65,20 @@ function draw3x3MagicSquare(table_element, square_name, a, b, c) {
     'r3c2': c - (a + b),
     'r3c3': c + b
   }
+
+  // Dictionary that will be used to add classes for border CSS changes to
+  // totals row (remove/lighten some borders, basically)
+  const totals_cells = {
+    'r1c4': 'top-right',
+    'r2c4': 'center-right',
+    'r3c4': 'center-right',
+    'r4c1': 'bottom-left',
+    'r4c2': 'center-bottom',
+    'r4c3': 'center-bottom',
+    'r4c4': 'bottom-right'
+  }
+
+  const totals_cells_keys = Object.keys(totals_cells);
 
   var name = square_name + '-';
       row_num = 1;
@@ -79,6 +95,14 @@ function draw3x3MagicSquare(table_element, square_name, a, b, c) {
     }
 
     row_num++;
+  }
+
+  // Iterate through keys and apply classes to each selected cell
+  for (i = 0; i < totals_cells_keys.length; i++) {
+    var cell_id = totals_cells_keys[i]
+
+    d3.select('#' + name + cell_id)
+      .attr('class', 'totals-' + totals_cells[cell_id]);
   }
 
 }
