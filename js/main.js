@@ -118,37 +118,195 @@ function animateMagicSquare() {
     d3.select(selector).style('background-color', color);
   }
 
-  col_bgd_color('#intro-r1c4', '');
+  //col_bgd_color('#intro-r1c4', '');
 
-  // There has got to be a better of doing this.
-  // Row 1
-  c11 = d3.select('#intro-r1c1').text();
-  c12 = d3.select('#intro-r1c2').text();
-  c13 = d3.select('#intro-r1c3').text();
   c14 = d3.select('#intro-r1c4')
 
-  window.setTimeout(function() {
-    col_bgd_color('#intro-r1c1', 'orange');
-    c14.text(c11);
-    c14_val = Number(c14.text());
-  }, timer);
+  var cellId = function(name, row, col) {
+    return '#' + name + '-r' + row + 'c' + col
+  }
 
-  window.setTimeout(function() {
-    col_bgd_color('#intro-r1c2', 'orange');
-    c14.text(c14_val + Number(c12));
-    c14_val = Number(c14.text());
-  }, timer + increment);
+  var c = 0;
+  var col_num = 1
+  var t;
+  var timer_is_on = false;
+  var num_cols = 3
+  var num_rows = 3
 
-  window.setTimeout(function() {
-    col_bgd_color('#intro-r1c3', 'orange');
-    c14.text(c14_val + Number(c13));
-  }, timer + (2 * increment));
+  cells_by_row = []
+  cells_by_col = []
 
-  window.setTimeout(function() {
-    col_bgd_color('#intro-r1c4', 'lightgreen');
-    col_bgd_color('#intro-r1c1', '');
-    col_bgd_color('#intro-r1c2', '');
-    col_bgd_color('#intro-r1c3', '');
-  }, timer + (3 * increment));
+  // Populate cells_by_row array with each cell ID (in order of row animation)
+  for (i = 0; i < num_cols; i++) {
+    for (j = 0; j < num_rows + 1; j++) {
+      cell_id = cellId('intro', row_num, col_num)
+      cells_by_row.push(cell_id)
+      col_num++
+    }
+    col_num = 1
+    row_num++
+  }
 
+  var row_num = 1,
+      col_num = 1
+
+  // Populate cells_by_col array with each cell ID (in order of col animation)
+  for (i = 0; i < num_rows; i++) {
+    for (j = 0; j < num_cols + 1; j++) {
+      cell_id = cellId('intro', row_num, col_num)
+      cells_by_col.push(cell_id)
+      row_num++
+    }
+    row_num = 1
+    col_num++
+  }
+
+  // This has potenital? Wtf am I doing
+
+  cell_count = 0
+  rows = true
+
+  function timedCount() {
+    x = c + 1
+    cell_id = cells_by_row[c]
+
+    if (rows) {
+      animateRows(cell_id)
+    } else {
+      cell_id = cells_by_col[c]
+      animateCols(cell_id)
+    }
+
+  }
+
+  function startCount() {
+      if (!timer_is_on) {
+          timer_is_on = true;
+          timedCount();
+      }
+  }
+
+  function stopCount() {
+    clearTimeout(t)
+    console.log('stopped')
+  }
+
+  function animateRows(cell_id) {
+
+    if (cell_id) {
+      if (x % 4 == 0) {
+        c1 = cells_by_row[c - 3]
+        c2 = cells_by_row[c - 2]
+        c3 = cells_by_row[c - 1]
+
+        col_bgd_color(c1, '')
+        col_bgd_color(c2, '')
+        col_bgd_color(c3, '')
+
+        col_bgd_color(cell_id, 'lightgreen')
+        cell_count = 0
+        c++
+        t = setTimeout(timedCount, 250);
+      } else {
+        cell_value = d3.select(cell_id).text()
+        cell_count += Number(cell_value)
+
+        if (x <= 3) {
+          cell4 = cells_by_row[3]
+          d3.select(cell4).text(cell_count)
+        } else if (x > 3 && x <= 8) {
+          cell8 = cells_by_row[7]
+          d3.select(cell8).text(cell_count)
+        } else {
+          cell12 = cells_by_row[11]
+          d3.select(cell12).text(cell_count)
+        }
+
+        col_bgd_color(cell_id, 'orange')
+        c++
+        t = setTimeout(timedCount, 250);
+      }
+      //console.log(cell_id)
+
+    } else {
+      rows = false
+      c = 0
+      timedCount()
+    }
+  }
+
+  function animateCols(cell_id) {
+    if (cell_id) {
+      if (x % 4 == 0) {
+        c1 = cells_by_col[c - 3]
+        c2 = cells_by_col[c - 2]
+        c3 = cells_by_col[c - 1]
+
+        col_bgd_color(c1, '')
+        col_bgd_color(c2, '')
+        col_bgd_color(c3, '')
+
+        col_bgd_color(cell_id, 'lightgreen')
+        cell_count = 0
+        c++
+        t = setTimeout(timedCount, 250);
+      } else {
+        cell_value = d3.select(cell_id).text()
+        cell_count += Number(cell_value)
+
+        if (x <= 3) {
+          cell4 = cells_by_col[3]
+          d3.select(cell4).text(cell_count)
+        } else if (x > 3 && x <= 8) {
+          cell8 = cells_by_col[7]
+          d3.select(cell8).text(cell_count)
+        } else {
+          cell12 = cells_by_col[11]
+          d3.select(cell12).text(cell_count)
+        }
+
+        col_bgd_color(cell_id, 'orange')
+        c++
+        t = setTimeout(timedCount, 250);
+      }
+    } else {
+      stopCount()
+    }
+
+  }
+
+  startCount()
+
+
+  // // There has got to be a better of doing this.
+  // // Row 1
+  // c11 = d3.select('#intro-r1c1').text();
+  // c12 = d3.select('#intro-r1c2').text();
+  // c13 = d3.select('#intro-r1c3').text();
+  // c14 = d3.select('#intro-r1c4')
+  //
+  // window.setTimeout(function() {
+  //   col_bgd_color('#intro-r1c1', 'orange');
+  //   c14.text(c11);
+  //   c14_val = Number(c14.text());
+  // }, timer);
+  //
+  // window.setTimeout(function() {
+  //   col_bgd_color('#intro-r1c2', 'orange');
+  //   c14.text(c14_val + Number(c12));
+  //   c14_val = Number(c14.text());
+  // }, timer + increment);
+  //
+  // window.setTimeout(function() {
+  //   col_bgd_color('#intro-r1c3', 'orange');
+  //   c14.text(c14_val + Number(c13));
+  // }, timer + (2 * increment));
+  //
+  // window.setTimeout(function() {
+  //   col_bgd_color('#intro-r1c4', 'lightgreen');
+  //   col_bgd_color('#intro-r1c1', '');
+  //   col_bgd_color('#intro-r1c2', '');
+  //   col_bgd_color('#intro-r1c3', '');
+  // }, timer + (3 * increment));
+  //animateRow()
 }
