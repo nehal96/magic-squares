@@ -110,29 +110,22 @@ function draw3x3MagicSquare(table_element, square_name, a, b, c) {
 
 
 function animateMagicSquare() {
-  var timer = 200,
-      increment = 300,
-      row_num = 1;
 
-  var col_bgd_color = function(selector, color) {
-    d3.select(selector).style('background-color', color);
-  }
-
-  //col_bgd_color('#intro-r1c4', '');
-
-  c14 = d3.select('#intro-r1c4')
-
+  // Function that generates each cell ID based on name, row number, and column
+  // number
   var cellId = function(name, row, col) {
     return '#' + name + '-r' + row + 'c' + col
   }
 
-  var c = 0;
-  var col_num = 1
-  var t;
-  var timer_is_on = false;
-  var num_cols = 3
-  var num_rows = 3
+  // For now, only deals with first 3x3 square. Need to change this (and other
+  // stuff) to make it flexible with other sized squares.
+  const num_cols = 3
+  const num_rows = 3
 
+  var col_num = 1,
+      row_num = 1;
+
+  // Initialise empty arrays where each cell ID to iterate over (in order) will go
   cells_by_row = []
   cells_by_col = []
 
@@ -147,6 +140,7 @@ function animateMagicSquare() {
     row_num++
   }
 
+  // Reset row_num and col_num variables
   var row_num = 1,
       col_num = 1
 
@@ -161,152 +155,130 @@ function animateMagicSquare() {
     col_num++
   }
 
-  // This has potenital? Wtf am I doing
+  // Finally getting to the animation bit.
 
-  cell_count = 0
-  rows = true
+  // Set delay for each colouring step in animation
+  const delay = 250
 
-  function timedCount() {
-    x = c + 1
+  // Function to change background colour of element based on element ID
+  var col_bgd_color = function(selector, color) {
+    d3.select(selector).style('background-color', color);
+  }
+
+  var c = 0,                    // Index for cell ID array iteration
+      cell_count = 0,           // Counter for totals cell
+      rows = true;              // Boolean to determine whether dealing with rows or columns
+      animation_is_on = false;  // Boolean that keeps in check whether animation is called
+
+  // Recursive setTimeout: https://javascript.info/settimeout-setinterval
+  // https://www.w3schools.com/Jsref/tryit.asp?filename=tryjsref_win_settimeout_cleartimeout2
+  // This is a helluva hack-y way to forego a for statement.
+  function animate() {
+    x = c + 1                   // Used to determine which cells are totals cells
     cell_id = cells_by_row[c]
 
+    // The animation does rows first and then does columns. So this if statement
+    // checks if it's still on rows or not, and calls the appropriate function.
     if (rows) {
       animateRows(cell_id)
     } else {
-      cell_id = cells_by_col[c]
+      cell_id = cells_by_col[c]   // Switch to new order of cell IDs
       animateCols(cell_id)
     }
 
   }
 
-  function startCount() {
-      if (!timer_is_on) {
-          timer_is_on = true;
-          timedCount();
-      }
+  // Function that calls animate().
+  function startAnimation() {
+    if (!animation_is_on) {
+        animation_is_on = true;
+        animate();
+    }
   }
 
-  function stopCount() {
+  // Function that clears the recursive setTimeout to stop the animation.
+  function stopAnimation() {
     clearTimeout(t)
     console.log('stopped')
   }
 
+  // Row-by-row animation
   function animateRows(cell_id) {
-
     if (cell_id) {
+      // This checks if it is the totals row. If it is, do the specific animation
+      // for totals cells. Otherwise the normal animation.
       if (x % 4 == 0) {
-        c1 = cells_by_row[c - 3]
-        c2 = cells_by_row[c - 2]
-        c3 = cells_by_row[c - 1]
-
-        col_bgd_color(c1, '')
-        col_bgd_color(c2, '')
-        col_bgd_color(c3, '')
-
-        col_bgd_color(cell_id, 'lightgreen')
-        cell_count = 0
-        c++
-        t = setTimeout(timedCount, 250);
+        animateTotalsCells(cell_id, cells_by_row)
       } else {
-        cell_value = d3.select(cell_id).text()
-        cell_count += Number(cell_value)
-
-        if (x <= 3) {
-          cell4 = cells_by_row[3]
-          d3.select(cell4).text(cell_count)
-        } else if (x > 3 && x <= 8) {
-          cell8 = cells_by_row[7]
-          d3.select(cell8).text(cell_count)
-        } else {
-          cell12 = cells_by_row[11]
-          d3.select(cell12).text(cell_count)
-        }
-
-        col_bgd_color(cell_id, 'orange')
-        c++
-        t = setTimeout(timedCount, 250);
+        animateSquareCells(cell_id, cells_by_row)
       }
-      //console.log(cell_id)
-
     } else {
+      // Now that there are no more cells remaining and rows are over, set row
+      // variable to false so column animation can begin
       rows = false
-      c = 0
-      timedCount()
+      c = 0         // Reset index
+      animate()     // Call animate function again to animate by column
     }
   }
 
+  // Column-by-column animation
   function animateCols(cell_id) {
     if (cell_id) {
+      // This checks if it is the totals row. If it is, do the specific animation
+      // for totals cells. Otherwise the normal animation.
       if (x % 4 == 0) {
-        c1 = cells_by_col[c - 3]
-        c2 = cells_by_col[c - 2]
-        c3 = cells_by_col[c - 1]
-
-        col_bgd_color(c1, '')
-        col_bgd_color(c2, '')
-        col_bgd_color(c3, '')
-
-        col_bgd_color(cell_id, 'lightgreen')
-        cell_count = 0
-        c++
-        t = setTimeout(timedCount, 250);
+        animateTotalsCells(cell_id, cells_by_col)
       } else {
-        cell_value = d3.select(cell_id).text()
-        cell_count += Number(cell_value)
-
-        if (x <= 3) {
-          cell4 = cells_by_col[3]
-          d3.select(cell4).text(cell_count)
-        } else if (x > 3 && x <= 8) {
-          cell8 = cells_by_col[7]
-          d3.select(cell8).text(cell_count)
-        } else {
-          cell12 = cells_by_col[11]
-          d3.select(cell12).text(cell_count)
-        }
-
-        col_bgd_color(cell_id, 'orange')
-        c++
-        t = setTimeout(timedCount, 250);
+        animateSquareCells(cell_id, cells_by_col)
       }
     } else {
-      stopCount()
+      stopAnimation()
     }
-
   }
 
-  startCount()
+  function animateTotalsCells(cell_id, cell_id_array) {
+    // The previous three cells on the row (relative to the totals cell)
+    c1 = cell_id_array[c - 3]
+    c2 = cell_id_array[c - 2]
+    c3 = cell_id_array[c - 1]
 
+    // Change their background colors back to default
+    col_bgd_color(c1, '')
+    col_bgd_color(c2, '')
+    col_bgd_color(c3, '')
 
-  // // There has got to be a better of doing this.
-  // // Row 1
-  // c11 = d3.select('#intro-r1c1').text();
-  // c12 = d3.select('#intro-r1c2').text();
-  // c13 = d3.select('#intro-r1c3').text();
-  // c14 = d3.select('#intro-r1c4')
-  //
-  // window.setTimeout(function() {
-  //   col_bgd_color('#intro-r1c1', 'orange');
-  //   c14.text(c11);
-  //   c14_val = Number(c14.text());
-  // }, timer);
-  //
-  // window.setTimeout(function() {
-  //   col_bgd_color('#intro-r1c2', 'orange');
-  //   c14.text(c14_val + Number(c12));
-  //   c14_val = Number(c14.text());
-  // }, timer + increment);
-  //
-  // window.setTimeout(function() {
-  //   col_bgd_color('#intro-r1c3', 'orange');
-  //   c14.text(c14_val + Number(c13));
-  // }, timer + (2 * increment));
-  //
-  // window.setTimeout(function() {
-  //   col_bgd_color('#intro-r1c4', 'lightgreen');
-  //   col_bgd_color('#intro-r1c1', '');
-  //   col_bgd_color('#intro-r1c2', '');
-  //   col_bgd_color('#intro-r1c3', '');
-  // }, timer + (3 * increment));
-  //animateRow()
+    // Now that it's done, change the totals cell to lightgreen
+    col_bgd_color(cell_id, 'lightgreen')
+
+    cell_count = 0        // Reset cell count
+    c++
+    t = setTimeout(animate, delay);
+  }
+
+  function animateSquareCells(cell_id, cell_id_array) {
+    cell_value = d3.select(cell_id).text()    // Get value of cell
+    cell_count += Number(cell_value)          // Increment the value to the counter
+                                              //  so a running total can be displayed.
+
+    // Gotta change this so it's useful for non-3x3 squares. Choosing the totals
+    // cell based on which row we are currently on.
+    if (x <= 3) {
+      cell4 = cell_id_array[3]
+      d3.select(cell4).text(cell_count)
+    } else if (x > 3 && x <= 8) {
+      cell8 = cell_id_array[7]
+      d3.select(cell8).text(cell_count)
+    } else {
+      cell12 = cell_id_array[11]
+      d3.select(cell12).text(cell_count)
+    }
+
+    // Change current cell background to orange to show we have gone over it
+    col_bgd_color(cell_id, 'orange')
+    c++
+    t = setTimeout(animate, delay);
+  }
+
+  // Let's roll...
+  startAnimation()
 }
