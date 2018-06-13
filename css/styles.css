@@ -40,10 +40,26 @@ td {
   margin-bottom: 3rem;
 }
 
+.totals-top-left {
+  border: none;
+}
+
+.totals-center-top {
+  border-top: none;
+  border-right: none;
+  border-left: none;
+}
+
 .totals-top-right {
   border-right: none;
   border-top: none;
   border-bottom: #eee;
+}
+
+.totals-center-left {
+  border-top: none;
+  border-bottom: none;
+  border-left: none;
 }
 
 .totals-center-right {

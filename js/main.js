@@ -19,11 +19,11 @@ draw3x3MagicSquare(intro_table, 'intro', 1, 3, 5)
 function drawSquareGrid(table_element, grid_short_name, n) {
   var table = table_element,
       grid_name_text = grid_short_name + '-'
-      row_num = 1;
+      row_num = 0;
 
   for (var i = 0; i < n; i++) {
     var row = table.append('tr'),
-        col_num = 1;
+        col_num = 0;
 
     for (var j = 0; j < n; j++) {
       row.append('td')
@@ -52,7 +52,7 @@ function drawSquareGrid(table_element, grid_short_name, n) {
 //    Inserts numbers into empty table cells according to the forumla.
 function draw3x3MagicSquare(table_element, square_name, a, b, c) {
   // Draw square grid (extra row + col is for totals)
-  drawSquareGrid(table_element, square_name, 4);
+  drawSquareGrid(table_element, square_name, 5);
 
   // Dictionary that will be used to apply formula to determine each cell's number
   const cell_mapping = {
@@ -70,10 +70,19 @@ function draw3x3MagicSquare(table_element, square_name, a, b, c) {
   // Dictionary that will be used to add classes for border CSS changes to
   // totals row (remove/lighten some borders, basically)
   const totals_cells = {
-    'r1c4': 'top-right',
+    'r0c0': 'top-left',
+    'r0c1': 'center-top',
+    'r0c2': 'center-top',
+    'r0c3': 'center-top',
+    'r0c4': 'top-right',
+    'r1c0': 'center-left',
+    'r2c0': 'center-left',
+    'r3c0': 'center-left',
+    'r1c4': 'center-right',
     'r2c4': 'center-right',
     'r3c4': 'center-right',
-    'r4c1': 'bottom-left',
+    'r4c0': 'bottom-left',
+    'r4c1': 'center-bottom',
     'r4c2': 'center-bottom',
     'r4c3': 'center-bottom',
     'r4c4': 'bottom-right'
