@@ -108,6 +108,8 @@ function draw3x3MagicSquare(table_element, square_name, a, b, c) {
 
 }
 
+var animation_is_on = false;  // Boolean that keeps in check whether animation is called
+const totals_cells_3x3 = ['r1c4', 'r2c4', 'r3c4', 'r4c1', 'r4c2', 'r4c3']
 
 function animateMagicSquare() {
 
@@ -168,7 +170,6 @@ function animateMagicSquare() {
   var c = 0,                    // Index for cell ID array iteration
       cell_count = 0,           // Counter for totals cell
       rows = true;              // Boolean to determine whether dealing with rows or columns
-      animation_is_on = false;  // Boolean that keeps in check whether animation is called
 
   // Recursive setTimeout: https://javascript.info/settimeout-setinterval
   // https://www.w3schools.com/Jsref/tryit.asp?filename=tryjsref_win_settimeout_cleartimeout2
@@ -191,8 +192,15 @@ function animateMagicSquare() {
   // Function that calls animate().
   function startAnimation() {
     if (!animation_is_on) {
-        animation_is_on = true;
-        animate();
+      // Reset totals cell to blank background colour and no text
+      totals_cells_3x3.forEach(function(c) {
+        cell = '#intro-' + c;
+        col_bgd_color(cell, '')
+        d3.select(cell).text('')
+      })
+      
+      animation_is_on = true;
+      animate();
     }
   }
 
@@ -233,6 +241,7 @@ function animateMagicSquare() {
       }
     } else {
       stopAnimation()
+      animation_is_on = false;
     }
   }
 
