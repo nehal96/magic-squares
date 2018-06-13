@@ -140,7 +140,7 @@ function animateMagicSquare() {
   cells_by_row = []
   cells_by_col = []
   cells_by_right_diag = []
-  cells_by_left_diag = ['#intro-r1c3', '#intro-r2c2', '#intro-r3c1', '#intro-r4c0']
+  cells_by_left_diag = []
 
   // Populate cells_by_row array with each cell ID (in order of row animation)
   for (i = 0; i < num_cols; i++) {
@@ -178,6 +178,18 @@ function animateMagicSquare() {
     cells_by_right_diag.push(cell_id)
     row_num++
     col_num++
+  }
+
+  // New row and col number initializations for left diagonal (bec it goes right to left)
+  var row_num = 1,
+      col_num = 3
+
+  // Populate cells_by_left_diag array with each cell ID (in order of col animation)
+  for (i = 0; i < num_rows + 1; i++) {
+    cell_id = cellId('intro', row_num, col_num)
+    cells_by_left_diag.push(cell_id)
+    row_num++
+    col_num--
   }
 
 
@@ -302,7 +314,7 @@ function animateMagicSquare() {
       }
     } else {
       // Colour and add total to last, top-right cell
-      col_bgd_color('#intro-r0c4', 'lightgreen')
+      col_bgd_color('#intro-r0c' + (num_cols + 1), 'lightgreen')
       cells_by_left_diag.forEach(function(cell) {
         if ((c + 1) % 4 !== 0) {
           cell_value = d3.select(cell).text()     // Get value of cell
@@ -310,7 +322,7 @@ function animateMagicSquare() {
           c++
         }
       })
-      d3.select('#intro-r0c4').text(cell_count)
+      d3.select('#intro-r0c' + (num_cols + 1)).text(cell_count)
       stopAnimation()
       animation_is_on = false
     }
