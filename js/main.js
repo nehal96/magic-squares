@@ -130,6 +130,7 @@ function animateMagicSquare() {
   // Initialise empty arrays where each cell ID to iterate over (in order) will go
   cells_by_row = []
   cells_by_col = []
+  cells_by_right_diag = []
 
   // Populate cells_by_row array with each cell ID (in order of row animation)
   for (i = 0; i < num_cols; i++) {
@@ -157,6 +158,19 @@ function animateMagicSquare() {
     col_num++
   }
 
+  // Reset row_num and col_num variables
+  var row_num = 1,
+      col_num = 1
+
+  // Populate cells_by_right_diag array with each cell ID (in order of col animation)
+  for (i = 0; i < num_rows + 1; i++) {
+    cell_id = cellId('intro', row_num, col_num)
+    cells_by_right_diag.push(cell_id)
+    row_num++
+    col_num++
+  }
+
+
   // Finally getting to the animation bit.
 
   // Set delay for each colouring step in animation
@@ -169,7 +183,8 @@ function animateMagicSquare() {
 
   var c = 0,                    // Index for cell ID array iteration
       cell_count = 0,           // Counter for totals cell
-      rows = true;              // Boolean to determine whether dealing with rows or columns
+      step = 1;                 // Number that represents which step the animation is on:
+                                //  1: rows, 2: columns, 3: right diagonal, 4: left diagonal
 
   // Recursive setTimeout: https://javascript.info/settimeout-setinterval
   // https://www.w3schools.com/Jsref/tryit.asp?filename=tryjsref_win_settimeout_cleartimeout2
@@ -180,11 +195,14 @@ function animateMagicSquare() {
 
     // The animation does rows first and then does columns. So this if statement
     // checks if it's still on rows or not, and calls the appropriate function.
-    if (rows) {
+    if (step === 1) {
       animateRows(cell_id)
-    } else {
+    } else if (step == 2) {
       cell_id = cells_by_col[c]   // Switch to new order of cell IDs
       animateCols(cell_id)
+    } else {
+      cell_id = cells_by_right_diag[c]
+      animateRightDiagonal(cell_id)
     }
 
   }
@@ -198,7 +216,7 @@ function animateMagicSquare() {
         col_bgd_color(cell, '')
         d3.select(cell).text('')
       })
-      
+
       animation_is_on = true;
       animate();
     }
@@ -223,7 +241,7 @@ function animateMagicSquare() {
     } else {
       // Now that there are no more cells remaining and rows are over, set row
       // variable to false so column animation can begin
-      rows = false
+      step = 2
       c = 0         // Reset index
       animate()     // Call animate function again to animate by column
     }
@@ -238,6 +256,21 @@ function animateMagicSquare() {
         animateTotalsCells(cell_id, cells_by_col)
       } else {
         animateSquareCells(cell_id, cells_by_col)
+      }
+    } else {
+      step = 3
+      c = 0
+      animate()
+    }
+  }
+
+  // Right-diagonal animation
+  function animateRightDiagonal(cell_id) {
+    if (cell_id) {
+      if (x % 4 == 0){
+        animateTotalsCells(cell_id, cells_by_right_diag)
+      } else {
+        animateSquareCells(cell_id, cells_by_right_diag)
       }
     } else {
       stopAnimation()
