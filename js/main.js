@@ -118,7 +118,7 @@ function draw3x3MagicSquare(table_element, square_name, a, b, c) {
 }
 
 var animation_is_on = false;  // Boolean that keeps in check whether animation is called
-const totals_cells_3x3 = ['r1c4', 'r2c4', 'r3c4', 'r4c1', 'r4c2', 'r4c3']
+const totals_cells_3x3 = ['r0c4', 'r1c4', 'r2c4', 'r3c4', 'r4c0', 'r4c1', 'r4c2', 'r4c3', 'r4c4']
 
 function animateMagicSquare() {
 
