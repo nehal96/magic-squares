@@ -140,6 +140,7 @@ function animateMagicSquare() {
   cells_by_row = []
   cells_by_col = []
   cells_by_right_diag = []
+  cells_by_left_diag = ['#intro-r1c3', '#intro-r2c2', '#intro-r3c1', '#intro-r4c0']
 
   // Populate cells_by_row array with each cell ID (in order of row animation)
   for (i = 0; i < num_cols; i++) {
@@ -209,9 +210,12 @@ function animateMagicSquare() {
     } else if (step == 2) {
       cell_id = cells_by_col[c]   // Switch to new order of cell IDs
       animateCols(cell_id)
-    } else {
+    } else if (step == 3) {
       cell_id = cells_by_right_diag[c]
       animateRightDiagonal(cell_id)
+    } else {
+      cell_id = cells_by_left_diag[c]
+      animateLeftDiagonal(cell_id)
     }
 
   }
@@ -282,9 +286,35 @@ function animateMagicSquare() {
         animateSquareCells(cell_id, cells_by_right_diag)
       }
     } else {
-      stopAnimation()
-      animation_is_on = false;
+      step = 4
+      c = 0
+      animate()
     }
+  }
+
+  // Left-diagonal animation
+  function animateLeftDiagonal(cell_id) {
+    if (cell_id) {
+      if (x % 4 == 0){
+        animateTotalsCells(cell_id, cells_by_left_diag)
+      } else {
+        animateSquareCells(cell_id, cells_by_left_diag)
+      }
+    } else {
+      // Colour and add total to last, top-right cell
+      col_bgd_color('#intro-r0c4', 'lightgreen')
+      cells_by_left_diag.forEach(function(cell) {
+        if ((c + 1) % 4 !== 0) {
+          cell_value = d3.select(cell).text()     // Get value of cell
+          cell_count += Number(cell_value)
+          c++
+        }
+      })
+      d3.select('#intro-r0c4').text(cell_count)
+      stopAnimation()
+      animation_is_on = false
+    }
+
   }
 
   function animateTotalsCells(cell_id, cell_id_array) {
