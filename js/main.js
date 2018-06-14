@@ -151,62 +151,79 @@ function validateMagicSquareVariables() {
 
   const draw_button = document.getElementById('intro-ms-draw-btn')
 
+  function validate(selector) {
+    selector.classed('input-failed', false)   // If the previous outcome didn't go through, remove the failed tag
+    selector.classed('input-accepted', true)  // Show green outline on input selection that indicates it's valid
+  }
+
+  function invalidate(selector) {
+    selector.classed('input-accepted', false) // Same as above, but for accepted tag
+    selector.classed('input-failed', true)
+    draw_button.disabled = true;              // Disable draw button incase it had been previously enabled
+  }
+
+  function defaultSelector(selector) {
+    selector.classed('input-accepted', false)
+    selector.classed('input-failed', false)
+    draw_button.disabled = true;
+  }
+
   // If only a value is entered, show green outline after number entered, otherwise
   // go back to default
   if (a_value > 0) {
-    a_selector.classed('input-failed', false)
-    a_selector.classed('input-accepted', true)
+    if (Number.isInteger(a_value)) {
+      validate(a_selector)
+    } else {
+      //console.log('a is not an integer')
+      invalidate(a_selector)
+    }
   } else {
-    a_selector.classed('input-accepted', false)
-    a_selector.classed('input-failed', true)
-    draw_button.disabled = true;                // Disable draw button incase it had been previously enabled
+    invalidate(a_selector)
   }
 
   // If both a and b are entered, we can validate b.
   if (a_value && b_value) {
     if ((b_value > a_value) && (b_value !== 2 * a_value)) {
-      b_selector.classed('input-failed', false)    // If the previous outcome didn't go through, remove the failed tag
-      b_selector.classed('input-accepted', true)
+      if (Number.isInteger(b_value)) {
+        validate(b_selector)
+      } else {
+        //console.log('b is not an integer')
+        invalidate(b_selector)
+      }
     } else {
-      b_selector.classed('input-accepted', false)  // Same as above, but for accepted tag
-      b_selector.classed('input-failed', true)
-      draw_button.disabled = true;
+      invalidate(b_selector)
     }
   }
 
   // If both a, b, and c are entered, we can validate c.
   if (a_value && b_value && c_value) {
     if ((c_value - a_value) > b_value) {
-      c_selector.classed('input-failed', false)
-      c_selector.classed('input-accepted', true)
-      if ((b_value > a_value) && (b_value !== 2 * a_value)) {
-        draw_button.disabled = false;            // Enable draw button since all rules have been met
+      if (Number.isInteger(c_value)) {
+        validate(c_selector)
+        if ((b_value > a_value) && (b_value !== 2 * a_value)) {
+          draw_button.disabled = false;            // Enable draw button since all rules have been met
+        }
+      } else {
+        //console.log('c is not an integer')
+        invalidate(c_selector)
       }
     } else {
-      c_selector.classed('input-accepted', false)
-      c_selector.classed('input-failed', true)
-      draw_button.disabled = true;               // Disable draw button incase it had been previously enabled
+      invalidate(c_selector)
     }
   }
 
   // If there is no number typed in, go back to default input focus and
   // default border
   if (!a_value) {
-    a_selector.classed('input-accepted', false)
-    a_selector.classed('input-failed', false)
-    draw_button.disabled = true;
+    defaultSelector(a_selector)
   }
 
   if (!b_value) {
-    b_selector.classed('input-accepted', false)
-    b_selector.classed('input-failed', false)
-    draw_button.disabled = true;
+    defaultSelector(b_selector)
   }
 
   if (!c_value) {
-    c_selector.classed('input-accepted', false)
-    c_selector.classed('input-failed', false)
-    draw_button.disabled = true;
+    defaultSelector(c_selector)
   }
 }
 
