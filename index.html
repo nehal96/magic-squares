@@ -169,11 +169,25 @@
 
 		<div class='intro'>
 			<h1 class='intro__hed tk-canela'>Magic Squares</h1>
-			<p class='intro__dek tk-atlas'>An exploration into magic squares.</p>
+			<p class='intro__dek tk-atlas'>An animated exploration of magic squares.</p>
 			<p class='intro__byline tk-atlas'>By <a href='https://twitter.com/puddingviz' target='_blank'><strong>Nehal Udyavar</strong></a></p>
 		</div>
 
 		<div id='intro-magic-square'>
+			<div id='intro-ms-input-field' class='input-field-container'>
+				<div class='input-group-prepend'>
+					<span class='input-group-text'>a</span>
+				</div>
+				<input class='input-field with-prepend' name='a' value='' placeholder="1"/>
+				<div class='input-group-prepend'>
+					<span class='input-group-text'>b</span>
+				</div>
+				<input class='input-field with-prepend' name='b' value='' placeholder="3"/>
+				<div class='input-group-prepend'>
+					<span class='input-group-text'>c</span>
+				</div>
+				<input class='input-field with-prepend' name='c' value='' placeholder="5"/>
+			</div>
 			<div id='intro-ms-animate-btn-container' class='btn-container'>
 				<button id='intro-ms-animate-btn' class='btn' onclick="animateMagicSquare()">Animate</button>
 			</div>

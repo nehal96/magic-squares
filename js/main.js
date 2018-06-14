@@ -353,8 +353,8 @@ function animateMagicSquare() {
     cell_count += Number(cell_value)          // Increment the value to the counter
                                               //  so a running total can be displayed.
 
-    // Gotta change this so it's useful for non-3x3 squares. Choosing the totals
-    // cell based on which row we are currently on.
+    // Gotta change this so it's useful for non-3x3 squares.
+    // Choosing the totals cell based on which row we are currently on.
     if (x <= 3) {
       cell4 = cell_id_array[3]
       d3.select(cell4).text(cell_count)
