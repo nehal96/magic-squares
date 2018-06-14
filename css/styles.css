@@ -24,6 +24,7 @@ ul {
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 1.5rem;
+  margin-top: 1.5rem;
 }
 
 .input-field-prepend {
@@ -104,8 +105,19 @@ ul {
 }
 
 .btn:hover {
-  background-color: lightgreen;
   transition: .15s ease-in-out;
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+}
+
+#intro-ms-draw-btn:hover:not([disabled]) {
+  background-color: #93deff;
+}
+
+#intro-ms-animate-btn:hover {
+  background-color: lightgreen;
 }
 
 .btn-active {

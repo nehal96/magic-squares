@@ -136,6 +136,8 @@ function validateMagicSquareVariables() {
   const b_value = Number(b_input.value)
   const c_value = Number(c_input.value)
 
+  const draw_button = document.getElementById('intro-ms-draw-btn')
+
   // If only a value is entered, show green outline after number entered, otherwise
   // go back to default
   if (a_value > 0) {
@@ -144,6 +146,7 @@ function validateMagicSquareVariables() {
   } else {
     a_selector.classed('input-accepted', false)
     a_selector.classed('input-failed', true)
+    draw_button.disabled = true;                // Disable draw button incase it had been previously enabled
   }
 
   // If both a and b are entered, we can validate b.
@@ -154,6 +157,7 @@ function validateMagicSquareVariables() {
     } else {
       b_selector.classed('input-accepted', false)  // Same as above, but for accepted tag
       b_selector.classed('input-failed', true)
+      draw_button.disabled = true;
     }
   }
 
@@ -162,9 +166,13 @@ function validateMagicSquareVariables() {
     if ((c_value - a_value) > b_value) {
       c_selector.classed('input-failed', false)
       c_selector.classed('input-accepted', true)
+      if ((b_value > a_value) && (b_value !== 2 * a_value)) {
+        draw_button.disabled = false;            // Enable draw button since all rules have been met
+      }
     } else {
       c_selector.classed('input-accepted', false)
       c_selector.classed('input-failed', true)
+      draw_button.disabled = true;               // Disable draw button incase it had been previously enabled
     }
   }
 
@@ -173,17 +181,25 @@ function validateMagicSquareVariables() {
   if (!a_value) {
     a_selector.classed('input-accepted', false)
     a_selector.classed('input-failed', false)
+    draw_button.disabled = true;
   }
 
   if (!b_value) {
     b_selector.classed('input-accepted', false)
     b_selector.classed('input-failed', false)
+    draw_button.disabled = true;
   }
 
   if (!c_value) {
     c_selector.classed('input-accepted', false)
     c_selector.classed('input-failed', false)
+    draw_button.disabled = true;
   }
+}
+
+
+function redraw3x3MagicSquare() {
+  console.log('Draw magic square');
 }
 
 

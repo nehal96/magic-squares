@@ -181,7 +181,7 @@
 						<li>2.&emsp;<strong>b</strong> is an integer that must be greater than <strong>a</strong> (<strong>b > a</strong>), but it cannot equal 2 times <strong>a</strong> (<strong>b &ne; 2a</strong>)</li>
 					<li>3.&emsp;<strong>c</strong> is an integer such that <strong>(c &minus; a) > b</strong></li>
 				</ul>
-				<p>This might seem a little complicated but I promise you'll get the hang of it in no time. A simple one is already been drawn for you.</p>
+				<p>This might seem a little complicated but I promise you'll get the hang of it in no time. A simple one has already been drawn for you.</p>
 			</div>
 			<div id='intro-ms-input-field' class='input-field-container'>
 				<div class='input-group-prepend'>
@@ -197,7 +197,8 @@
 				</div>
 				<input id='intro-ms-c-input' class='input-field with-prepend' type='number' name='c' onkeyup="validateMagicSquareVariables()" placeholder="5"/>
 			</div>
-			<div id='intro-ms-animate-btn-container' class='btn-container'>
+			<div id='intro-ms-btn-container' class='btn-container'>
+				<button id='intro-ms-draw-btn' class='btn' onclick="redraw3x3MagicSquare()" disabled>Draw</button>
 				<button id='intro-ms-animate-btn' class='btn' onclick="animateMagicSquare()">Animate</button>
 			</div>
 
