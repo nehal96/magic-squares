@@ -117,6 +117,20 @@ function draw3x3MagicSquare(table_element, square_name, a, b, c) {
 
 }
 
+
+function validateMagicSquareVariables() {
+  const a_input = document.getElementById('intro-ms-a-input')
+  const b_input = document.getElementById('intro-ms-b-input')
+  const c_input = document.getElementById('intro-ms-c-input')
+
+  console.log(a_input.value)
+  console.log(b_input.value)
+  console.log(c_input.value)
+}
+
+validateMagicSquareVariables()
+
+
 var animation_is_on = false;  // Boolean that keeps in check whether animation is called
 const totals_cells_3x3 = ['r0c4', 'r1c4', 'r2c4', 'r3c4', 'r4c0', 'r4c1', 'r4c2', 'r4c3', 'r4c4']
 
