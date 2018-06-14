@@ -4,7 +4,12 @@ var intro_table = d3.select('#intro-magic-square')
                .attr('id', 'intro-magic-square-grid')
               .append('tbody');
 
+//var trs = document.getElementById('intro-magic-square-grid')
+//console.log(trs.rows.length)
+
 draw3x3MagicSquare(intro_table, 'intro', 1, 3, 5)
+
+//console.log(trs.rows.length)
 
 
 // The function takes 3 variables:
@@ -51,8 +56,16 @@ function drawSquareGrid(table_element, grid_short_name, n) {
 // Returns:
 //    Inserts numbers into empty table cells according to the forumla.
 function draw3x3MagicSquare(table_element, square_name, a, b, c) {
-  // Draw square grid (extra row + col is for totals)
-  drawSquareGrid(table_element, square_name, 5);
+  const grid_id = square_name + '-magic-square-grid'
+  const grid_elem = document.getElementById(grid_id)
+  const num_rows = grid_elem.rows.length
+
+  // Used to check if a square grid is already drawn. If the number of rows is
+  // greater than 0, it's already drawn, so no need to draw again.
+  if (num_rows === 0) {
+    // Draw square grid (extra row + col is for totals)
+    drawSquareGrid(table_element, square_name, 5);
+  }
 
   // Dictionary that will be used to apply formula to determine each cell's number
   const cell_mapping = {
@@ -199,15 +212,37 @@ function validateMagicSquareVariables() {
 
 
 function redraw3x3MagicSquare() {
-  console.log('Draw magic square');
+  const a_input = document.getElementById('intro-ms-a-input')
+  const b_input = document.getElementById('intro-ms-b-input')
+  const c_input = document.getElementById('intro-ms-c-input')
+
+  const a_value = Number(a_input.value)
+  const b_value = Number(b_input.value)
+  const c_value = Number(c_input.value)
+
+  clearAll3x3TotalsCell()
+  draw3x3MagicSquare(intro_table, 'intro', a_value, b_value, c_value)
 }
 
 
 var animation_is_on = false;  // Boolean that keeps in check whether animation is called
 const totals_cells_3x3 = ['r0c4', 'r1c4', 'r2c4', 'r3c4', 'r4c0', 'r4c1', 'r4c2', 'r4c3', 'r4c4']
 
-function animateMagicSquare() {
+function clearAll3x3TotalsCell() {
+  // Function to change background colour of element based on element ID
+  var col_bgd_color = function(selector, color) {
+    d3.select(selector).style('background-color', color);
+  }
 
+  totals_cells_3x3.forEach(function(c) {
+    cell = '#intro-' + c;
+    col_bgd_color(cell, '')
+    d3.select(cell).text('')
+  })
+}
+
+
+function animateMagicSquare() {
   // Function that generates each cell ID based on name, row number, and column
   // number
   var cellId = function(name, row, col) {
@@ -322,11 +357,7 @@ function animateMagicSquare() {
   function startAnimation() {
     if (!animation_is_on) {
       // Reset totals cell to blank background colour and no text
-      totals_cells_3x3.forEach(function(c) {
-        cell = '#intro-' + c;
-        col_bgd_color(cell, '')
-        d3.select(cell).text('')
-      })
+      clearAll3x3TotalsCell()
 
       animation_is_on = true;
       animate();
@@ -336,7 +367,6 @@ function animateMagicSquare() {
   // Function that clears the recursive setTimeout to stop the animation.
   function stopAnimation() {
     clearTimeout(t)
-    console.log('stopped')
   }
 
   // Row-by-row animation
