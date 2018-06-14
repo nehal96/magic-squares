@@ -63,6 +63,27 @@ ul {
   transition: all .15s ease-in-out;
 }
 
+.input-accepted {
+  border: 1px solid lightgreen;
+}
+
+.input-accepted:focus {
+  outline: lightgreen auto 5px;
+  outline-offset: -2px;
+}
+
+/*.input-accepted:-moz-focusring {
+  box-shadow: 0px 0px 3px 1px lightgreen;
+}*/
+
+.input-failed {
+  border: 1px solid red;
+}
+
+.input-failed:focus {
+  outline: red auto 5px;
+}
+
 .with-prepend {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;

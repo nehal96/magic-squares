@@ -117,18 +117,74 @@ function draw3x3MagicSquare(table_element, square_name, a, b, c) {
 
 }
 
-
+// Function that validates the three numbers (a, b, c) entered in order to draw the 3x3
+// magic square. The function is called everytime a number is entered into any
+// of the fields.
+// (It assumes that a is the first number entered. So if you enter b and c
+// first, and enter an invalid a for those b and c, then it will show b and c
+// as invalid - for now, still need to decide which way I wanna go with that).
 function validateMagicSquareVariables() {
   const a_input = document.getElementById('intro-ms-a-input')
   const b_input = document.getElementById('intro-ms-b-input')
   const c_input = document.getElementById('intro-ms-c-input')
 
-  console.log(a_input.value)
-  console.log(b_input.value)
-  console.log(c_input.value)
-}
+  const a_selector = d3.select('#intro-ms-a-input')
+  const b_selector = d3.select('#intro-ms-b-input')
+  const c_selector = d3.select('#intro-ms-c-input')
 
-validateMagicSquareVariables()
+  const a_value = Number(a_input.value)
+  const b_value = Number(b_input.value)
+  const c_value = Number(c_input.value)
+
+  // If only a value is entered, show green outline after number entered, otherwise
+  // go back to default
+  if (a_value > 0) {
+    a_selector.classed('input-failed', false)
+    a_selector.classed('input-accepted', true)
+  } else {
+    a_selector.classed('input-accepted', false)
+    a_selector.classed('input-failed', true)
+  }
+
+  // If both a and b are entered, we can validate b.
+  if (a_value && b_value) {
+    if ((b_value > a_value) && (b_value !== 2 * a_value)) {
+      b_selector.classed('input-failed', false)    // If the previous outcome didn't go through, remove the failed tag
+      b_selector.classed('input-accepted', true)
+    } else {
+      b_selector.classed('input-accepted', false)  // Same as above, but for accepted tag
+      b_selector.classed('input-failed', true)
+    }
+  }
+
+  // If both a, b, and c are entered, we can validate c.
+  if (a_value && b_value && c_value) {
+    if ((c_value - a_value) > b_value) {
+      c_selector.classed('input-failed', false)
+      c_selector.classed('input-accepted', true)
+    } else {
+      c_selector.classed('input-accepted', false)
+      c_selector.classed('input-failed', true)
+    }
+  }
+
+  // If there is no number typed in, go back to default input focus and
+  // default border
+  if (!a_value) {
+    a_selector.classed('input-accepted', false)
+    a_selector.classed('input-failed', false)
+  }
+
+  if (!b_value) {
+    b_selector.classed('input-accepted', false)
+    b_selector.classed('input-failed', false)
+  }
+
+  if (!c_value) {
+    c_selector.classed('input-accepted', false)
+    c_selector.classed('input-failed', false)
+  }
+}
 
 
 var animation_is_on = false;  // Boolean that keeps in check whether animation is called
