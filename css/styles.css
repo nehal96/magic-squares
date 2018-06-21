@@ -20,7 +20,36 @@ ul {
 }
 
 .container {
+  margin: 2rem;
+  display: flex;
+  justify-content: space-around;
+  padding: 2rem 0rem;
+}
+
+.prose-container {
   max-width: 40rem;
+}
+
+.line-scrolly {
+  display: flex;
+  margin: 0 50px;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+.graphic-container {
+  width: 50%;
+}
+
+.graphic-prose-container {
+  width: 50%;
+}
+
+.prose-subtitle {
+  font-weight: 600;
+  font-size: 22px;
+  padding-top: 1rem;
 }
 
 .input-field-container {
