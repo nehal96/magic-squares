@@ -46,7 +46,29 @@ function drawMostPerfectMagicSquare(table_element, square_name, n) {
   }
 }
 
-
+// Set up scrollytelling
 var controller = new ScrollMagic.Controller();
 
-console.log('scrollmagic');
+// Scene that pins magic square
+new ScrollMagic.Scene({
+  triggerElement: '#most-perfect-slide-1',
+  duration: 1300
+})
+.setPin('#most-perfect-graphic-container')
+.addTo(controller)
+
+// Activate each slide
+activateSlide('#most-perfect-slide-1')
+activateSlide('#most-perfect-slide-2')
+activateSlide('#most-perfect-slide-3')
+activateSlide('#most-perfect-slide-4')
+
+// Function that creates the Scene that activates the particular slide
+function activateSlide(slide_id) {
+  return new ScrollMagic.Scene({
+    triggerElement: slide_id,
+    duration: 295
+  })
+  .setClassToggle(slide_id, 'active-slide')
+  .addTo(controller)
+}
