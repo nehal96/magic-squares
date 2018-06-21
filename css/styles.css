@@ -19,6 +19,10 @@ ul {
   line-height: 1.7;
 }
 
+.container {
+  max-width: 40rem;
+}
+
 .input-field-container {
   position: relative;
   display: flex;
@@ -89,6 +93,25 @@ ul {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
+
+/* .alert {
+  position: relative;
+  padding: .75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+  font-size: .9rem;
+}
+
+.alert-failure {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+
+.alert-hidden {
+  display: none;
+} */
 
 .btn-container {
   margin-bottom: 1.5rem;

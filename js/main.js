@@ -151,6 +151,8 @@ function validateMagicSquareVariables() {
 
   const draw_button = document.getElementById('intro-ms-draw-btn')
 
+  //const failure_alert = d3.select('#intro-failure-alert')
+
   function validate(selector) {
     selector.classed('input-failed', false)   // If the previous outcome didn't go through, remove the failed tag
     selector.classed('input-accepted', true)  // Show green outline on input selection that indicates it's valid
@@ -167,6 +169,11 @@ function validateMagicSquareVariables() {
     selector.classed('input-failed', false)
     draw_button.disabled = true;
   }
+
+  // function hideAlert() {
+  //   failure_alert.classed('alert-hidden', true)
+  //                .text('')
+  // }
 
   // If only a value is entered, show green outline after number entered, otherwise
   // go back to default

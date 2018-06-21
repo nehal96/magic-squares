@@ -168,18 +168,18 @@
 	<main id='content'>
 
 		<div class='intro'>
-			<h1 class='intro__hed tk-canela'>Magic Squares</h1>
+			<h1 class='intro__hed tk-canela'>The Mystery of Magic Squares</h1>
 			<p class='intro__dek tk-atlas'>An animated exploration of magic squares.</p>
 			<p class='intro__byline tk-atlas'>By <a href='https://twitter.com/nehaludyavar' target='_blank'><strong>Nehal Udyavar</strong></a></p>
 		</div>
 
 		<div id='intro-prose' class='prose'>
-			<p>A magic square is a <em>n x n</em> square grid (where <em>n</em> is the number of rows or columns) filled with
+			<p>A magic square is a <em>n</em> &times; <em>n</em> square grid (where <em>n</em> is the number of rows or columns) filled with
 				distinct, positive integers such that the sum of each row, column, and diagonal is equal.</p>
 		</div>
 		<div id='intro-magic-square'>
 			<div id='intro-ms-rules' class='prose'>
-				<p>Too much? Let's make a quick 3x3 magic square. It's quite simple: you have to pick 3 numbers below
+				<p>Too much? Let's make a quick 3&times;3 magic square. It's quite simple: you have to pick 3 numbers below
 					&mdash; <strong>a</strong>, <strong>b</strong>, and <strong>c</strong> &mdash; while following these rules:</p>
 				<ul>
 					<li>1.&emsp;<strong>a</strong> is an integer that must be greater than 0: <strong>(a > 0)</strong></li>
@@ -205,6 +205,9 @@
 				</div>
 				<input id='intro-ms-c-input' class='input-field with-prepend' type='number' name='c' onkeyup="validateMagicSquareVariables()" oninput="validateMagicSquareVariables()" placeholder="5"/>
 			</div>
+			<!-- <div id='intro-alert-container' class='container'>
+				<div id='intro-failure-alert' class='alert alert-failure alert-hidden'></div>
+			</div> -->
 			<div id='intro-ms-btn-container' class='btn-container'>
 				<button id='intro-ms-draw-btn' class='btn' onclick="redraw3x3MagicSquare()" disabled>Draw</button>
 				<button id='intro-ms-animate-btn' class='btn' onclick="animateMagicSquare()">Animate</button>
