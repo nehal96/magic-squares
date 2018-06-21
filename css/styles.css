@@ -39,11 +39,15 @@ ul {
 }
 
 .graphic-container {
+  display: flex;
+  border: 1px solid black;
+  justify-content: center;
   width: 50%;
 }
 
 .graphic-prose-container {
   width: 50%;
+  border: 1px solid black;
 }
 
 .prose-subtitle {

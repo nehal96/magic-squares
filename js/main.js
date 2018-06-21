@@ -21,14 +21,24 @@ draw3x3MagicSquare(intro_table, 'intro', 1, 3, 5)
 //        draw a nxn grid).
 // Returns:
 //    Draws an n x n grid.
-function drawSquareGrid(table_element, grid_short_name, n) {
+function drawSquareGrid(table_element, grid_short_name, n, zero_indexed=false) {
   var table = table_element,
-      grid_name_text = grid_short_name + '-'
-      row_num = 0;
+      grid_name_text = grid_short_name + '-';
+
+  if (zero_indexed) {
+    var row_num = 0;
+  } else {
+    var row_num = 1;
+  }
 
   for (var i = 0; i < n; i++) {
-    var row = table.append('tr'),
-        col_num = 0;
+    var row = table.append('tr')
+
+    if (zero_indexed) {
+      col_num = 0;
+    } else {
+      col_num = 1;
+    }
 
     for (var j = 0; j < n; j++) {
       row.append('td')
@@ -64,7 +74,7 @@ function draw3x3MagicSquare(table_element, square_name, a, b, c) {
   // greater than 0, it's already drawn, so no need to draw again.
   if (num_rows === 0) {
     // Draw square grid (extra row + col is for totals)
-    drawSquareGrid(table_element, square_name, 5);
+    drawSquareGrid(table_element, square_name, 5, zero_indexed=true);
   }
 
   // Dictionary that will be used to apply formula to determine each cell's number
