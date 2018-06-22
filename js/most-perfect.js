@@ -6,7 +6,11 @@ const most_perfect_table = d3.select('#most-perfect-magic-square')
 drawMostPerfectMagicSquare(most_perfect_table, 'most-perfect', 4)
 
 function drawMostPerfectMagicSquare(table_element, square_name, n) {
-  drawSquareGrid(table_element, 'most-perfect', n)
+  drawSquareGrid(table_element,
+    'most-perfect',
+    n,
+    zero_indexed=false,
+    on_click_function=true)
 
   const cell_mapping = {
     'r1c1': 7,
@@ -124,7 +128,7 @@ function animateMostPerfectMagicSquare(slide_num) {
   }
 
   if (slide_num == 1) {
-    console.log('First slide animation')
+    //console.log('First slide animation')
   }
 
   if (slide_num == 2) {

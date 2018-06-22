@@ -21,7 +21,7 @@ draw3x3MagicSquare(intro_table, 'intro', 1, 3, 5)
 //        draw a nxn grid).
 // Returns:
 //    Draws an n x n grid.
-function drawSquareGrid(table_element, grid_short_name, n, zero_indexed=false) {
+function drawSquareGrid(table_element, grid_short_name, n, zero_indexed=false, on_click_function=false) {
   var table = table_element,
       grid_name_text = grid_short_name + '-';
 
@@ -41,9 +41,19 @@ function drawSquareGrid(table_element, grid_short_name, n, zero_indexed=false) {
     }
 
     for (var j = 0; j < n; j++) {
-      row.append('td')
-         .attr('id', grid_name_text + 'r' + row_num + 'c' + col_num)
-         .text('')
+      if (on_click_function) {
+        row.append('td')
+           .attr('id', grid_name_text + 'r' + row_num + 'c' + col_num)
+           .on('click', function() {
+             printNum(this)
+           })
+           .text('')
+      } else {
+        row.append('td')
+           .attr('id', grid_name_text + 'r' + row_num + 'c' + col_num)
+           .text('')
+      }
+
 
       col_num++;
     }
@@ -524,4 +534,8 @@ function animateMagicSquare() {
 
   // Let's roll...
   startAnimation()
+}
+
+function printNum(e) {
+  console.log(e.innerHTML)
 }
