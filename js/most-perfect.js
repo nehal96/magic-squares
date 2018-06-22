@@ -34,7 +34,6 @@ function drawMostPerfectMagicSquare(table_element, square_name, n) {
     var col_num = 1;
 
     for (var j = 0; j < n; j++) {
-      console.log(row_num, col_num)
       var cell_id = 'r' + row_num + 'c' + col_num;
       d3.select('#' + name + cell_id)
         .text(cell_mapping[cell_id]);
@@ -57,18 +56,43 @@ new ScrollMagic.Scene({
 .setPin('#most-perfect-graphic-container')
 .addTo(controller)
 
-// Activate each slide
+// // Activate each slide
 activateSlide('#most-perfect-slide-1')
 activateSlide('#most-perfect-slide-2')
 activateSlide('#most-perfect-slide-3')
 activateSlide('#most-perfect-slide-4')
 
+
 // Function that creates the Scene that activates the particular slide
 function activateSlide(slide_id) {
+  const slide_num = slide_id.split('').reverse()[0]
+  //console.log(slide_num)
+
   return new ScrollMagic.Scene({
     triggerElement: slide_id,
     duration: 295
   })
   .setClassToggle(slide_id, 'active-slide')
+  .on('enter', function() {
+    animateMostPerfectMagicSquare(slide_num)
+  })
   .addTo(controller)
+}
+
+function animateMostPerfectMagicSquare(slide_num) {
+  if (slide_num == 1) {
+    console.log('First slide animation')
+  }
+
+  if (slide_num == 2) {
+    console.log('Second slide animation')
+  }
+
+  if (slide_num == 3) {
+    console.log('Third slide animation')
+  }
+
+  if (slide_num == 4) {
+    console.log('Fourth slide animation')
+  }
 }
