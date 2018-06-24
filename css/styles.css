@@ -235,6 +235,7 @@ ul {
   display: flex;
   padding: 1rem;
   flex-direction: column;
+  align-items: center;
 }
 
 .graphic-prose {
@@ -267,4 +268,53 @@ ul {
 
 .active-slide {
   opacity: 1;
+}
+
+#most-perfect-totals-container {
+  width: 150%;
+  margin-top: 4rem;
+}
+
+.most-perfect-totals-row {
+  display: flex;
+  margin-bottom: 2rem;
+  height: 75px;
+  border-radius: .25rem;
+}
+
+.most-perfect-total-cell {
+  display: flex;
+  width: 20%;
+  height: 100%;
+  border: 1px solid #444;
+}
+
+.most-perfect-centre-cell {
+  border: none;
+}
+
+.most-perfect-left-cell {
+  border-top-left-radius: .25rem;
+  border-bottom-left-radius: .25rem;
+}
+
+.most-perfect-right-cell {
+  border-top-right-radius: .25rem;
+  border-bottom-right-radius: .25rem;
+}
+
+#most-perfect-pink {
+  background-color: pink;
+}
+
+#most-perfect-yellow {
+  background-color: yellow;
+}
+
+#most-perfect-blue {
+  background-color: lightblue;
+}
+
+#most-perfect-orange {
+  background-color: orange;
 }

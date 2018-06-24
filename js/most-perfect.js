@@ -5,6 +5,28 @@ const most_perfect_table = d3.select('#most-perfect-magic-square')
 
 drawMostPerfectMagicSquare(most_perfect_table, 'most-perfect', 4)
 
+// Draw totals UI for most perfect magic square
+d3.select('#most-perfect-magic-square')
+ .append('div')
+  .attr('id', 'most-perfect-totals-container')
+
+const totals_row1_html = "<div class='most-perfect-totals-row'>" +
+  "<div id='most-perfect-pink' class='most-perfect-total-cell most-perfect-left-cell'></div>" +
+  "<div id='most-perfect-pink-total' class='most-perfect-total-cell most-perfect-right-cell'></div>" +
+  "<div class='most-perfect-total-cell most-perfect-centre-cell'></div>" +
+  "<div id='most-perfect-yellow' class='most-perfect-total-cell most-perfect-left-cell'></div>" +
+  "<div id='most-perfect-yellow-total' class='most-perfect-total-cell most-perfect-right-cell'></div>" + "</div>"
+
+const totals_row2_html = "<div class='most-perfect-totals-row'>" +
+  "<div id='most-perfect-blue' class='most-perfect-total-cell most-perfect-left-cell'></div>" +
+  "<div id='most-perfect-blue-total' class='most-perfect-total-cell most-perfect-right-cell'></div>" +
+  "<div class='most-perfect-total-cell most-perfect-centre-cell'></div>" +
+  "<div id='most-perfect-orange' class='most-perfect-total-cell most-perfect-left-cell'></div>" +
+  "<div id='most-perfect-orange-total' class='most-perfect-total-cell most-perfect-right-cell'></div>" + "</div>"
+
+document.getElementById('most-perfect-totals-container').innerHTML = totals_row1_html + totals_row2_html
+
+
 function drawMostPerfectMagicSquare(table_element, square_name, n) {
   drawSquareGrid(table_element,
     'most-perfect',
