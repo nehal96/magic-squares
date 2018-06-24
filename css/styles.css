@@ -280,6 +280,7 @@ ul {
   margin-bottom: 2rem;
   height: 75px;
   border-radius: .25rem;
+  opacity: 0;
 }
 
 .most-perfect-total-cell {

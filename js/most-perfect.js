@@ -13,14 +13,14 @@ d3.select('#most-perfect-magic-square')
 const totals_row1_html = "<div class='most-perfect-totals-row'>" +
   "<div id='most-perfect-pink' class='most-perfect-total-cell most-perfect-left-cell'></div>" +
   "<div id='most-perfect-pink-total' class='most-perfect-total-cell most-perfect-right-cell'></div>" +
-  "<div class='most-perfect-total-cell most-perfect-centre-cell'></div>" +
+  "<div id='most-perfect-centre-1' class='most-perfect-total-cell most-perfect-centre-cell'></div>" +
   "<div id='most-perfect-yellow' class='most-perfect-total-cell most-perfect-left-cell'></div>" +
   "<div id='most-perfect-yellow-total' class='most-perfect-total-cell most-perfect-right-cell'></div>" + "</div>"
 
 const totals_row2_html = "<div class='most-perfect-totals-row'>" +
   "<div id='most-perfect-blue' class='most-perfect-total-cell most-perfect-left-cell'></div>" +
   "<div id='most-perfect-blue-total' class='most-perfect-total-cell most-perfect-right-cell'></div>" +
-  "<div class='most-perfect-total-cell most-perfect-centre-cell'></div>" +
+  "<div id='most-perfect-centre-2' class='most-perfect-total-cell most-perfect-centre-cell'></div>" +
   "<div id='most-perfect-orange' class='most-perfect-total-cell most-perfect-left-cell'></div>" +
   "<div id='most-perfect-orange-total' class='most-perfect-total-cell most-perfect-right-cell'></div>" + "</div>"
 
@@ -155,16 +155,53 @@ function animateMostPerfectMagicSquare(slide_num) {
 
   if (slide_num == 2) {
     colorMostPerfectMagicSquare(panmagic_color_mapping, default_color=true)
+
+    // Hide totals cells
+    d3.selectAll('.most-perfect-totals-row')
+      .transition()
+      .duration(600)
+      .ease(d3.easeLinear)
+      .style('opacity', 0)
   }
 
   if (slide_num == 3) {
     // Panmagic colouring
     colorMostPerfectMagicSquare(panmagic_color_mapping)
+
+    // Hide orange and orange-total cells because not needed for panmagic
+    d3.select('#most-perfect-orange')
+      .style('background-color', 'white')
+      .style('border', 'none')
+
+    d3.select('#most-perfect-orange-total')
+      .style('background-color', 'white')
+      .style('border', 'none')
+
+    // Display hidden (opacity: 0) totals cells
+    d3.selectAll('.most-perfect-totals-row')
+      .transition()
+      .duration(600)
+      .ease(d3.easeLinear)
+      .style('opacity', 1)
   }
 
   if (slide_num == 4) {
     // Four square colouring
     colorMostPerfectMagicSquare(four_squares_color_mapping)
+
+    // Show orange and orange-total cells
+    d3.select('#most-perfect-orange')
+      .transition()
+      .duration(600)
+      .ease(d3.easeLinear)
+      .style('background-color', 'orange')
+      .style('border', '1px solid #444')
+
+    d3.select('#most-perfect-orange-total')
+      .transition()
+      .duration(600)
+      .ease(d3.easeLinear)
+      .style('border', '1px solid #444')
   }
 
   function colorMostPerfectMagicSquare(color_mapping, default_color=false) {
