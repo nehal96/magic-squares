@@ -77,7 +77,7 @@ var controller = new ScrollMagic.Controller();
 // Scene that pins magic square
 new ScrollMagic.Scene({
   triggerElement: '#most-perfect-slide-1',
-  duration: 1300
+  duration: 2600
 })
 .setPin('#most-perfect-graphic-container')
 .addTo(controller)
@@ -87,6 +87,11 @@ activateSlide('#most-perfect-slide-1')
 activateSlide('#most-perfect-slide-2')
 activateSlide('#most-perfect-slide-3')
 activateSlide('#most-perfect-slide-4')
+activateSlide('#most-perfect-slide-5')
+activateSlide('#most-perfect-slide-6')
+activateSlide('#most-perfect-slide-7')
+activateSlide('#most-perfect-slide-8')
+activateSlide('#most-perfect-slide-9')
 
 
 // Function that creates the Scene that activates the particular slide
@@ -147,6 +152,101 @@ function animateMostPerfectMagicSquare(slide_num) {
     'r4c2': 'lightblue',
     'r4c3': 'orange',
     'r4c4': 'orange'
+  }
+
+  const alternate_color_mapping = {
+    'r1c1': 'pink',
+    'r1c2': 'yellow',
+    'r1c3': 'pink',
+    'r1c4': 'yellow',
+    'r2c1': 'lightblue',
+    'r2c2': 'orange',
+    'r2c3': 'lightblue',
+    'r2c4': 'orange',
+    'r3c1': 'pink',
+    'r3c2': 'yellow',
+    'r3c3': 'pink',
+    'r3c4': 'yellow',
+    'r4c1': 'lightblue',
+    'r4c2': 'orange',
+    'r4c3': 'lightblue',
+    'r4c4': 'orange'
+  }
+
+  const four_corners_color_mapping = {
+    'r1c1': 'pink',
+    'r1c2': '',
+    'r1c3': '',
+    'r1c4': 'pink',
+    'r2c1': '',
+    'r2c2': '',
+    'r2c3': '',
+    'r2c4': '',
+    'r3c1': '',
+    'r3c2': '',
+    'r3c3': '',
+    'r3c4': '',
+    'r4c1': 'pink',
+    'r4c2': '',
+    'r4c3': '',
+    'r4c4': 'pink'
+  }
+
+  const horizontal_rows_color_mapping = {
+    'r1c1': 'pink',
+    'r1c2': 'pink',
+    'r1c3': 'yellow',
+    'r1c4': 'yellow',
+    'r2c1': 'lightblue',
+    'r2c2': 'lightblue',
+    'r2c3': 'orange',
+    'r2c4': 'orange',
+    'r3c1': 'lightblue',
+    'r3c2': 'lightblue',
+    'r3c3': 'orange',
+    'r3c4': 'orange',
+    'r4c1': 'pink',
+    'r4c2': 'pink',
+    'r4c3': 'yellow',
+    'r4c4': 'yellow'
+  }
+
+  const vertical_rows_color_mapping = {
+    'r1c1': 'pink',
+    'r1c2': 'yellow',
+    'r1c3': 'yellow',
+    'r1c4': 'pink',
+    'r2c1': 'pink',
+    'r2c2': 'yellow',
+    'r2c3': 'yellow',
+    'r2c4': 'pink',
+    'r3c1': 'lightblue',
+    'r3c2': 'orange',
+    'r3c3': 'orange',
+    'r3c4': 'lightblue',
+    'r4c1': 'lightblue',
+    'r4c2': 'orange',
+    'r4c3': 'orange',
+    'r4c4': 'lightblue'
+  }
+
+  const plus_sign_color_mapping = {
+    'r1c1': '',
+    'r1c2': 'yellow',
+    'r1c3': 'yellow',
+    'r1c4': '',
+    'r2c1': 'lightblue',
+    'r2c2': 'pink',
+    'r2c3': 'pink',
+    'r2c4': 'lightblue',
+    'r3c1': 'lightblue',
+    'r3c2': 'pink',
+    'r3c3': 'pink',
+    'r3c4': 'lightblue',
+    'r4c1': '',
+    'r4c2': 'yellow',
+    'r4c3': 'yellow',
+    'r4c4': ''
   }
 
   if (slide_num == 1) {
@@ -213,6 +313,34 @@ function animateMostPerfectMagicSquare(slide_num) {
       .duration(600)
       .ease(d3.easeLinear)
       .style('border', '1px solid #444')
+  }
+
+  if (slide_num == 5) {
+    // Alternate cells colouring
+    eraseMostPerfectTotals()
+    colorMostPerfectMagicSquare(alternate_color_mapping)
+  }
+
+  if (slide_num == 6) {
+    // Four corners cells colouring
+    eraseMostPerfectTotals()
+    colorMostPerfectMagicSquare(four_corners_color_mapping)
+  }
+
+  if (slide_num == 7) {
+    // Horizontal rows colouring
+    eraseMostPerfectTotals()
+    colorMostPerfectMagicSquare(horizontal_rows_color_mapping)
+  }
+
+  if (slide_num == 8) {
+    eraseMostPerfectTotals()
+    colorMostPerfectMagicSquare(vertical_rows_color_mapping)
+  }
+
+  if (slide_num == 9) {
+    eraseMostPerfectTotals()
+    colorMostPerfectMagicSquare(plus_sign_color_mapping)
   }
 
   function colorMostPerfectMagicSquare(color_mapping, default_color=false) {
