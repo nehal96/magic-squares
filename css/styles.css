@@ -285,6 +285,13 @@ ul {
 
 .most-perfect-total-cell {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.7rem;
+  font-weight: 400;
+  vertical-align: middle;
+  padding: .25rem;
+  text-align: center;
   width: 20%;
   height: 100%;
   border: 1px solid #444;
@@ -312,7 +319,7 @@ ul {
   background-color: yellow;
 }
 
-#most-perfect-blue {
+#most-perfect-lightblue {
   background-color: lightblue;
 }
 

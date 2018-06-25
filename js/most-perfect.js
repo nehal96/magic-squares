@@ -18,8 +18,8 @@ const totals_row1_html = "<div class='most-perfect-totals-row'>" +
   "<div id='most-perfect-yellow-total' class='most-perfect-total-cell most-perfect-right-cell'></div>" + "</div>"
 
 const totals_row2_html = "<div class='most-perfect-totals-row'>" +
-  "<div id='most-perfect-blue' class='most-perfect-total-cell most-perfect-left-cell'></div>" +
-  "<div id='most-perfect-blue-total' class='most-perfect-total-cell most-perfect-right-cell'></div>" +
+  "<div id='most-perfect-lightblue' class='most-perfect-total-cell most-perfect-left-cell'></div>" +
+  "<div id='most-perfect-lightblue-total' class='most-perfect-total-cell most-perfect-right-cell'></div>" +
   "<div id='most-perfect-centre-2' class='most-perfect-total-cell most-perfect-centre-cell'></div>" +
   "<div id='most-perfect-orange' class='most-perfect-total-cell most-perfect-left-cell'></div>" +
   "<div id='most-perfect-orange-total' class='most-perfect-total-cell most-perfect-right-cell'></div>" + "</div>"
@@ -154,6 +154,7 @@ function animateMostPerfectMagicSquare(slide_num) {
   }
 
   if (slide_num == 2) {
+    eraseMostPerfectTotals()
     colorMostPerfectMagicSquare(panmagic_color_mapping, default_color=true)
 
     // Hide totals cells
@@ -162,10 +163,15 @@ function animateMostPerfectMagicSquare(slide_num) {
       .duration(600)
       .ease(d3.easeLinear)
       .style('opacity', 0)
+
+    // Set cursor to default to indicate not clickable
+    d3.select('#most-perfect-magic-square-grid')
+      .style('cursor', 'default')
   }
 
   if (slide_num == 3) {
     // Panmagic colouring
+    eraseMostPerfectTotals()
     colorMostPerfectMagicSquare(panmagic_color_mapping)
 
     // Hide orange and orange-total cells because not needed for panmagic
@@ -183,10 +189,15 @@ function animateMostPerfectMagicSquare(slide_num) {
       .duration(600)
       .ease(d3.easeLinear)
       .style('opacity', 1)
+
+    // Set cursor to pointer to indicate it's clickable
+    d3.select('#most-perfect-magic-square-grid')
+      .style('cursor', 'pointer')
   }
 
   if (slide_num == 4) {
     // Four square colouring
+    eraseMostPerfectTotals()
     colorMostPerfectMagicSquare(four_squares_color_mapping)
 
     // Show orange and orange-total cells
@@ -216,5 +227,14 @@ function animateMostPerfectMagicSquare(slide_num) {
       }
       col_bgd_color(cell_id, cell_color)
     }
+  }
+
+  function eraseMostPerfectTotals() {
+    pink_total = yellow_total = blue_total = orange_total = 0
+
+    document.getElementById('most-perfect-pink-total').innerHTML = ''
+    document.getElementById('most-perfect-yellow-total').innerHTML = ''
+    document.getElementById('most-perfect-lightblue-total').innerHTML = ''
+    document.getElementById('most-perfect-orange-total').innerHTML = ''
   }
 }

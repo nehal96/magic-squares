@@ -45,7 +45,7 @@ function drawSquareGrid(table_element, grid_short_name, n, zero_indexed=false, o
         row.append('td')
            .attr('id', grid_name_text + 'r' + row_num + 'c' + col_num)
            .on('click', function() {
-             printNum(this)
+             mostPerfectCalculator(this)
            })
            .text('')
       } else {
@@ -536,6 +536,43 @@ function animateMagicSquare() {
   startAnimation()
 }
 
-function printNum(e) {
-  console.log(e.innerHTML)
+var pink_total = yellow_total = blue_total = orange_total = 0
+
+function mostPerfectCalculator(e) {
+  const pink = 'pink'
+  const yellow = 'yellow'
+  const lightblue = 'lightblue'
+  const orange = 'orange'
+
+  const bg_color = e.style.backgroundColor
+  const totals_id = 'most-perfect-' + bg_color + '-total'
+
+  const totals_elem = document.getElementById(totals_id)
+
+  if (totals_elem) {
+    const value = Number(e.innerHTML)
+
+    switch (bg_color) {
+      case pink:
+        pink_total += value
+        totals_elem.innerHTML = pink_total
+        e.style.backgroundColor = 'lightgreen'
+        break
+      case yellow:
+        yellow_total += value
+        totals_elem.innerHTML = yellow_total
+        e.style.backgroundColor = 'lightgreen'
+        break
+      case lightblue:
+        blue_total += value
+        totals_elem.innerHTML = blue_total
+        e.style.backgroundColor = 'lightgreen'
+        break
+      case orange:
+        orange_total += value
+        totals_elem.innerHTML = orange_total
+        e.style.backgroundColor = 'lightgreen'
+        break
+    }
+  }
 }
