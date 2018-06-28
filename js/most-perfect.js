@@ -82,7 +82,7 @@ new ScrollMagic.Scene({
 .setPin('#most-perfect-graphic-container')
 .addTo(controller)
 
-// // Activate each slide
+// Activate each slide
 activateSlide('#most-perfect-slide-1')
 activateSlide('#most-perfect-slide-2')
 activateSlide('#most-perfect-slide-3')
@@ -254,6 +254,7 @@ function animateMostPerfectMagicSquare(slide_num) {
   }
 
   if (slide_num == 2) {
+    /*** BACKWARD PASS ***/
     eraseMostPerfectTotals()
     colorMostPerfectMagicSquare(panmagic_color_mapping, default_color=true)
 
@@ -266,8 +267,10 @@ function animateMostPerfectMagicSquare(slide_num) {
     eraseMostPerfectTotals()
     colorMostPerfectMagicSquare(panmagic_color_mapping)
 
+    // Show all cells
     showAllTotalCells()
-    hideParticularTotalsCell('orange')
+    // Hide orange cell because not necessary
+    hideParticularTotalsCell('orange', first_time=true)
   }
 
   if (slide_num == 4) {
@@ -275,6 +278,7 @@ function animateMostPerfectMagicSquare(slide_num) {
     eraseMostPerfectTotals()
     colorMostPerfectMagicSquare(four_squares_color_mapping)
 
+    // Show orange cell
     showAllTotalCells()
     showParticularTotalCell('orange')
   }
@@ -283,28 +287,55 @@ function animateMostPerfectMagicSquare(slide_num) {
     // Alternate cells colouring
     eraseMostPerfectTotals()
     colorMostPerfectMagicSquare(alternate_color_mapping)
+
+    /* BACKWARD PASS */
+    const orange_width = document.getElementById('most-perfect-orange').style.width
+    if (orange_width === '0%') {
+      showAllTotalCells()
+      showParticularTotalCell('orange')
+      showParticularTotalCell('lightblue')
+      showParticularTotalCell('yellow')
+    }
+
   }
 
   if (slide_num == 6) {
     // Four corners cells colouring
     eraseMostPerfectTotals()
     colorMostPerfectMagicSquare(four_corners_color_mapping)
+
+    // Hide orange, lightblue, and yellow cells
+    showAllTotalCells()
+    hideParticularTotalsCell('orange')
+    hideParticularTotalsCell('lightblue')
+    hideParticularTotalsCell('yellow')
   }
 
   if (slide_num == 7) {
     // Horizontal rows colouring
     eraseMostPerfectTotals()
     colorMostPerfectMagicSquare(horizontal_rows_color_mapping)
+
+    showAllTotalCells()
+    showParticularTotalCell('orange')
+    showParticularTotalCell('lightblue')
+    showParticularTotalCell('yellow')
   }
 
   if (slide_num == 8) {
     eraseMostPerfectTotals()
     colorMostPerfectMagicSquare(vertical_rows_color_mapping)
+
+    showAllTotalCells()
+    showParticularTotalCell('orange')
   }
 
   if (slide_num == 9) {
     eraseMostPerfectTotals()
     colorMostPerfectMagicSquare(plus_sign_color_mapping)
+
+    showAllTotalCells()
+    hideParticularTotalsCell('orange')
   }
 
   function colorMostPerfectMagicSquare(color_mapping, default_color=false) {
@@ -357,7 +388,7 @@ function animateMostPerfectMagicSquare(slide_num) {
       .style('cursor', 'pointer')
   }
 
-  function hideParticularTotalsCell(color) {
+  function hideParticularTotalsCell(color, first_time=false) {
     const color_id = '#most-perfect-' + color
     const color_total_id = '#most-perfect-' + color + '-total'
 
@@ -369,9 +400,11 @@ function animateMostPerfectMagicSquare(slide_num) {
       .style('border', 'none')
       .style('width', '0%')
 
-    // Remove color without transition
-    d3.select(color_id)
-      .style('background-color', 'white')
+    if (first_time) {
+      // Remove color without transition
+      d3.select(color_id)
+        .style('background-color', 'white')
+    }
 
     // Hide color total cell
     d3.select(color_total_id)

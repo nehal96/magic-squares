@@ -291,7 +291,7 @@ ul {
   font-size: 1.7rem;
   font-weight: 400;
   vertical-align: middle;
-  padding: .25rem;
+  /* padding: .25rem; */
   text-align: center;
   width: 20%;
   height: 100%;
