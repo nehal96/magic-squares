@@ -77,7 +77,7 @@ var controller = new ScrollMagic.Controller();
 // Scene that pins magic square
 new ScrollMagic.Scene({
   triggerElement: '#most-perfect-slide-1',
-  duration: 2600
+  duration: 2900
 })
 .setPin('#most-perfect-graphic-container')
 .addTo(controller)
