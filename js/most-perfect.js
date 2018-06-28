@@ -257,16 +257,8 @@ function animateMostPerfectMagicSquare(slide_num) {
     eraseMostPerfectTotals()
     colorMostPerfectMagicSquare(panmagic_color_mapping, default_color=true)
 
-    // Hide totals cells
-    d3.selectAll('.most-perfect-totals-row')
-      .transition()
-      .duration(600)
-      .ease(d3.easeLinear)
-      .style('opacity', 0)
-
-    // Set cursor to default to indicate not clickable
-    d3.select('#most-perfect-magic-square-grid')
-      .style('cursor', 'default')
+    // Hide all totals cells
+    hideAllTotalsCells()
   }
 
   if (slide_num == 3) {
@@ -274,25 +266,8 @@ function animateMostPerfectMagicSquare(slide_num) {
     eraseMostPerfectTotals()
     colorMostPerfectMagicSquare(panmagic_color_mapping)
 
-    // Hide orange and orange-total cells because not needed for panmagic
-    d3.select('#most-perfect-orange')
-      .style('background-color', 'white')
-      .style('border', 'none')
-
-    d3.select('#most-perfect-orange-total')
-      .style('background-color', 'white')
-      .style('border', 'none')
-
-    // Display hidden (opacity: 0) totals cells
-    d3.selectAll('.most-perfect-totals-row')
-      .transition()
-      .duration(600)
-      .ease(d3.easeLinear)
-      .style('opacity', 1)
-
-    // Set cursor to pointer to indicate it's clickable
-    d3.select('#most-perfect-magic-square-grid')
-      .style('cursor', 'pointer')
+    showAllTotalCells()
+    hideParticularTotalsCell('orange')
   }
 
   if (slide_num == 4) {
@@ -300,19 +275,8 @@ function animateMostPerfectMagicSquare(slide_num) {
     eraseMostPerfectTotals()
     colorMostPerfectMagicSquare(four_squares_color_mapping)
 
-    // Show orange and orange-total cells
-    d3.select('#most-perfect-orange')
-      .transition()
-      .duration(600)
-      .ease(d3.easeLinear)
-      .style('background-color', 'orange')
-      .style('border', '1px solid #444')
-
-    d3.select('#most-perfect-orange-total')
-      .transition()
-      .duration(600)
-      .ease(d3.easeLinear)
-      .style('border', '1px solid #444')
+    showAllTotalCells()
+    showParticularTotalCell('orange')
   }
 
   if (slide_num == 5) {
@@ -364,5 +328,139 @@ function animateMostPerfectMagicSquare(slide_num) {
     document.getElementById('most-perfect-yellow-total').innerHTML = ''
     document.getElementById('most-perfect-lightblue-total').innerHTML = ''
     document.getElementById('most-perfect-orange-total').innerHTML = ''
+  }
+
+  function hideAllTotalsCells() {
+    // Hide totals cells
+    d3.selectAll('.most-perfect-totals-row')
+      .transition()
+      .duration(500)
+      .ease(d3.easeLinear)
+      .style('opacity', 0)
+
+    // Set cursor to default to indicate not clickable
+    d3.select('#most-perfect-magic-square-grid')
+      .style('cursor', 'default')
+  }
+
+  function showAllTotalCells() {
+    // Display hidden (opacity: 0) totals cells
+    d3.selectAll('.most-perfect-totals-row')
+      .transition()
+      .duration(500)
+      .ease(d3.easeLinear)
+      .style('opacity', 1)
+      .style('justify-content', 'center')
+
+    // Set cursor to pointer to indicate it's clickable
+    d3.select('#most-perfect-magic-square-grid')
+      .style('cursor', 'pointer')
+  }
+
+  function hideParticularTotalsCell(color) {
+    const color_id = '#most-perfect-' + color
+    const color_total_id = '#most-perfect-' + color + '-total'
+
+    // Hide color cell
+    d3.select(color_id)
+      .transition()
+      .duration(500)
+      .ease(d3.easeLinear)
+      .style('border', 'none')
+      .style('width', '0%')
+
+    // Remove color without transition
+    d3.select(color_id)
+      .style('background-color', 'white')
+
+    // Hide color total cell
+    d3.select(color_total_id)
+      .transition()
+      .duration(500)
+      .ease(d3.easeLinear)
+      .style('background-color', 'white')
+      .style('border', 'none')
+      .style('width', '0%')
+
+    // Hide the centre cell (used for spacing colors)
+    switch (color) {
+      case 'pink':
+        d3.select('#most-perfect-centre-1')
+          .transition()
+          .duration(500)
+          .ease(d3.easeLinear)
+          .style('border', 'none')
+          .style('width', '0%')
+      case 'yellow':
+        d3.select('#most-perfect-centre-1')
+          .transition()
+          .duration(500)
+          .ease(d3.easeLinear)
+          .style('border', 'none')
+          .style('width', '0%')
+      case 'orange':
+        d3.select('#most-perfect-centre-2')
+          .transition()
+          .duration(500)
+          .ease(d3.easeLinear)
+          .style('border', 'none')
+          .style('width', '0%')
+      case 'lightblue':
+        d3.select('#most-perfect-centre-2')
+          .transition()
+          .duration(500)
+          .ease(d3.easeLinear)
+          .style('border', 'none')
+          .style('width', '0%')
+    }
+  }
+
+  function showParticularTotalCell(color) {
+    const color_id = '#most-perfect-' + color
+    const color_total_id = '#most-perfect-' + color + '-total'
+
+    // Show orange and orange-total cells
+    d3.select(color_id)
+      .transition()
+      .duration(500)
+      .ease(d3.easeLinear)
+      .style('background-color', color)
+      .style('border', '1px solid #444')
+      .style('width', '20%')
+
+    d3.select(color_total_id)
+      .transition()
+      .duration(500)
+      .ease(d3.easeLinear)
+      .style('border', '1px solid #444')
+      .style('width', '20%')
+
+    // Show the centre cell (used for spacing colors)
+    switch (color) {
+      case 'pink':
+        d3.select('#most-perfect-centre-1')
+          .transition()
+          .duration(500)
+          .ease(d3.easeLinear)
+          .style('width', '20%')
+      case 'yellow':
+        d3.select('#most-perfect-centre-1')
+          .transition()
+          .duration(500)
+          .ease(d3.easeLinear)
+          .style('width', '20%')
+      case 'orange':
+        d3.select('#most-perfect-centre-2')
+          .transition()
+          .duration(500)
+          .ease(d3.easeLinear)
+          .style('width', '20%')
+      case 'lightblue':
+        d3.select('#most-perfect-centre-2')
+          .transition()
+          .duration(500)
+          .ease(d3.easeLinear)
+          .style('width', '20%')
+    }
   }
 }

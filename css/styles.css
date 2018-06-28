@@ -258,8 +258,8 @@ ul {
 }
 
 .slide {
-  background: #eee;
-  opacity: 0.3;
+  background: #e9ecef;
+  opacity: 0.2;
   border-right: 4px solid #f67280;
   padding: 1rem 1.5rem;
   font-size: 15px;
@@ -277,6 +277,7 @@ ul {
 
 .most-perfect-totals-row {
   display: flex;
+  /* justify-content: center; */
   margin-bottom: 2rem;
   height: 75px;
   border-radius: .25rem;
