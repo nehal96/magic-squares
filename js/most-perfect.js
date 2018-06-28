@@ -359,6 +359,18 @@ function animateMostPerfectMagicSquare(slide_num) {
     document.getElementById('most-perfect-yellow-total').innerHTML = ''
     document.getElementById('most-perfect-lightblue-total').innerHTML = ''
     document.getElementById('most-perfect-orange-total').innerHTML = ''
+
+    d3.select('#most-perfect-pink').style('border', '1px solid black')
+    d3.select('#most-perfect-pink-total').style('border', '1px solid black')
+
+    d3.select('#most-perfect-yellow').style('border', '1px solid black')
+    d3.select('#most-perfect-yellow-total').style('border', '1px solid black')
+
+    d3.select('#most-perfect-lightblue').style('border', '1px solid black')
+    d3.select('#most-perfect-lightblue-total').style('border', '1px solid black')
+
+    d3.select('#most-perfect-orange').style('border', '1px solid black')
+    d3.select('#most-perfect-orange-total').style('border', '1px solid black')
   }
 
   function hideAllTotalsCells() {

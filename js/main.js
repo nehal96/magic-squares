@@ -539,13 +539,16 @@ function animateMagicSquare() {
 var pink_total = yellow_total = blue_total = orange_total = 0
 
 function mostPerfectCalculator(e) {
+  const magic_constant = 34
+
   const pink = 'pink'
   const yellow = 'yellow'
   const lightblue = 'lightblue'
   const orange = 'orange'
 
   const bg_color = e.style.backgroundColor
-  const totals_id = 'most-perfect-' + bg_color + '-total'
+  const color_id = 'most-perfect-' + bg_color
+  const totals_id = color_id + '-total'
 
   const totals_elem = document.getElementById(totals_id)
 
@@ -555,24 +558,66 @@ function mostPerfectCalculator(e) {
     switch (bg_color) {
       case pink:
         pink_total += value
+
         totals_elem.innerHTML = pink_total
         e.style.backgroundColor = 'lightgreen'
+
+        if (pink_total === magic_constant) {
+          successfulTotal(color_id, totals_id)
+        }
         break
+
       case yellow:
         yellow_total += value
+
         totals_elem.innerHTML = yellow_total
         e.style.backgroundColor = 'lightgreen'
+
+        if (yellow_total === magic_constant) {
+          successfulTotal(color_id, totals_id)
+        }
         break
+
       case lightblue:
         blue_total += value
+
         totals_elem.innerHTML = blue_total
         e.style.backgroundColor = 'lightgreen'
+
+        if (blue_total === magic_constant) {
+          successfulTotal(color_id, totals_id)
+        }
         break
+
       case orange:
         orange_total += value
+
         totals_elem.innerHTML = orange_total
         e.style.backgroundColor = 'lightgreen'
+
+        if (orange_total === magic_constant) {
+          successfulTotal(color_id, totals_id)
+        }
         break
     }
+  }
+
+  // Colours borders of totals cells lightgreen
+  function successfulTotal(color_id, totals_id) {
+    d3.select('#' + totals_id)
+      .transition()
+      .duration(250)
+      .ease(d3.easeLinear)
+      .style('border-top', '3px solid lightgreen')
+      .style('border-bottom', '3px solid lightgreen')
+      .style('border-right', '3px solid lightgreen')
+
+    d3.select('#' + color_id)
+      .transition()
+      .duration(250)
+      .ease(d3.easeLinear)
+      .style('border-top', '3px solid lightgreen')
+      .style('border-bottom', '3px solid lightgreen')
+      .style('border-left', '3px solid lightgreen')
   }
 }
