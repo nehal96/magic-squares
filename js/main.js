@@ -1,6 +1,7 @@
 
 var intro_table = d3.select('#intro-magic-square')
               .append('table')
+                .attr('class', 'magic-square')
                .attr('id', 'intro-magic-square-grid')
               .append('tbody');
 

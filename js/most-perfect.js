@@ -1,5 +1,6 @@
 const most_perfect_table = d3.select('#most-perfect-magic-square')
                              .append('table')
+                              .attr('class', 'magic-square')
                               .attr('id', 'most-perfect-magic-square-grid')
                              .append('tbody')
 

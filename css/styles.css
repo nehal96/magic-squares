@@ -3,7 +3,7 @@ table {
   /*border: 1px solid black;*/
   border-collapse: separate;
   border-spacing: inherit;
-  font-size: 1.75rem;
+  /* font-size: 1.75rem; */
 }
 
 td {
@@ -12,6 +12,37 @@ td {
   border: 1px solid black;
   padding: .25rem;
   text-align: center;
+}
+
+.magic-square {
+  font-size: 1.75rem;
+}
+
+.text-table {
+  width: 100%;
+  margin: 1rem 0rem;
+  border-collapse: collapse;
+}
+
+.text-table thead {
+  border-bottom: 1px solid black;
+}
+
+.text-table th {
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 500;
+  padding-bottom: .5rem;
+}
+
+.text-table td {
+  /* width: auto; */
+  height: auto;
+  font-size: 1rem;
+  text-align: left;
+  padding: .5rem;
+  border: none;
+  border-bottom: 1px solid #ccc;
 }
 
 ul {
@@ -34,6 +65,20 @@ ul {
 
 .prose-container {
   max-width: 40rem;
+}
+
+.rules-table-num {
+  width: 5%;
+}
+
+.rules-table-english {
+  width: 70%;
+  padding-right: .5rem;
+}
+
+.rules-table-math {
+  width: 25%;
+  padding-left: .5rem;
 }
 
 .input-field-container {
