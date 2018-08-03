@@ -219,7 +219,7 @@
 								but it cannot equal 2 times <strong>a</strong> (<strong>b &ne; 2a</strong>)</li>
 						<li>3.&emsp;<strong>c</strong> is an integer such that <strong>(c &minus; a) > b</strong></li>
 					</ul>
-					<p>This might seem a little complicated but I promise you'll get the hang of it in no time. A simple one has already
+					<p>This might seem a little complicated, but I promise you'll get the hang of it in no time. A simple one has already
 						been drawn for you. Click on Animate to watch the rows, columns, and diagonals add up to equal sums. Or enter in other
 						numbers to draw your own magic square.</p>
 				</div>
@@ -244,7 +244,21 @@
 					<button id='intro-ms-draw-btn' class='btn' onclick="redraw3x3MagicSquare()" disabled>Draw</button>
 					<button id='intro-ms-animate-btn' class='btn' onclick="animateMagicSquare()">Animate</button>
 				</div>
+			</div>
+			<div class='prose'>
+				<p>
+					Neat, right? The 3 &times; 3, or order 3 magic squares generated above are possible because in the 19<sup>th</sup> century,
+					a French mathematician named Édouard Lucas devised a general formula. But not all orders have it so easy; in fact, the methods of
+					constructing magic squares vary considerably in style and complexity. Mathematicians from around the world and across centuries,
+					from Euler to Ramanujan, have had their go trying to devise creative ways of constructing magic squares.
+				</p>
+				<p>
+					Interestingly, magic squares exist for all orders of n, with a single exception: it’s impossible to create a magic square of order 2.
+					Don’t believe me? <a id='order-2-ms-link'>Try it yourself.</a>
+				</p>
 
+				<!-- (Small caveat: the proper definition of a magic square states that the numbers in the square must be
+				in the range 1, 2, ..., <em>n</em><sup>2</sup>.) -->
 			</div>
 		</section>
 		<section id='most-perfect'>
