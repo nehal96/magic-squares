@@ -213,6 +213,14 @@ ul {
   margin-bottom: 3rem;
 }
 
+#birthday-magic-square {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 2rem;
+  margin-bottom: 3rem;
+}
+
 .totals-top-left {
   border: none;
 }
